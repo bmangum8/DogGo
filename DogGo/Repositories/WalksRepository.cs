@@ -98,44 +98,9 @@ namespace DogGo.Repositories
                             };
 
                             walks.Add(walk);
-
-                         
                         }
 
                         return walks;
-                    }
-                }
-            }
-        }
-
-        public Owner GetOwnerByWalk(int walkId)
-        {
-            using (SqlConnection conn = Connection)
-            {
-                conn.Open();
-
-                using (SqlCommand cmd = conn.CreateCommand())
-                {
-                    cmd.CommandText = @"
-                            SELECT w.Id, w.Date, w.Duration, w.WalkerId, w.DogId, o.Name
-                            FROM Walks w
-                            JOIN Dog d ON d.Id = w.DogId
-                            JOIN Owner o ON o.Id = d.OwnerId
-                            WHERE w.Id = @walkId
-            ";
-
-                    cmd.Parameters.AddWithValue("@walkId", walkId);
-
-                    using (SqlDataReader reader = cmd.ExecuteReader())
-                    {
-                        Owner owner = new Owner();
-
-                        while (reader.Read())
-                        {
-                            owner.Name = reader.GetString(reader.GetOrdinal("Name"));
-                        }
-
-                        return owner;
                     }
                 }
             }

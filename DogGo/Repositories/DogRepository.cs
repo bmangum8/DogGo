@@ -140,9 +140,9 @@ namespace DogGo.Repositories
                     cmd.Parameters.AddWithValue("@notes", dog.Notes == null ? DBNull.Value : dog.Notes);
                     cmd.Parameters.AddWithValue("@imageUrl", dog.ImageUrl == null ? DBNull.Value : dog.ImageUrl);
 
-                    int id = (int)cmd.ExecuteScalar();
+                    int newlyCreatedId = (int)cmd.ExecuteScalar();
 
-                    dog.Id = id;
+                    dog.Id = newlyCreatedId;
                 }
             }
         }
